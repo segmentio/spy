@@ -1,0 +1,25 @@
+{
+  "name": "spy",
+  "remotes": [
+    "https://raw.githubusercontent.com/"
+  ],
+  "repo": "segmentio/spy",
+  "description": "test spy",
+  "version": "0.0.1",
+  "keywords": [
+    "spy",
+    "test"
+  ],
+  "license": "MIT",
+  "main": "index.js",
+  "scripts": [
+    "index.js"
+  ],
+  "dependencies": {
+    "yields/eql": "*",
+    "yields/merge": "*"
+  },
+  "development": {
+    "component/assert": "*"
+  }
+}
