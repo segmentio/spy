@@ -28,14 +28,10 @@ module.exports = function(obj, method){
   function spy(){
     var args = [].slice.call(arguments);
     var ret = fn(arguments);
-    spy.returns = spy.returns || [];
-    spy.args = spy.args || [];
+    spy.returns || spy.reset();
     spy.args.push(args);
     spy.returns.push(ret);
-    spy.calledOnce = spy.once();
-    spy.calledTwice = spy.twice();
-    spy.calledThrice = spy.thrice();
-    spy.called = true;
+    spy.update();
     return ret;
   }
 };
@@ -105,6 +101,35 @@ proto.twice = function(){
 
 proto.thrice = function(){
   return 3 == this.args.length;
+};
+
+/**
+ * Reset the spy.
+ * 
+ * @return {Function}
+ * @api public
+ */
+
+proto.reset = function(){
+  this.returns = [];
+  this.args = [];
+  this.update();
+  return this;
+};
+
+/**
+ * Update the spy.
+ * 
+ * @return {Function}
+ * @api private
+ */
+
+proto.update = function(){
+  this.called = !! this.args.length;
+  this.calledOnce = this.once();
+  this.calledTwice = this.twice();
+  this.calledThrice = this.thrice();
+  return this;
 };
 
 /**

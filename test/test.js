@@ -92,4 +92,21 @@ describe('spy', function(){
     })
   })
 
+  describe('.reset()', function(){
+    it('should reset the spy', function(){
+      var s = spy();
+      s(1);
+      s(2);
+      s(3);
+      assert(3 == s.args.length);
+      assert(3 == s.returns.length);
+      s.reset();
+      assert(0 == s.args.length);
+      assert(0 == s.returns.length);
+      assert(!s.calledOnce);
+      assert(!s.calledTwice);
+      assert(!s.calledThrice);
+      assert(!s.called);
+    })
+  })
 })
