@@ -10,10 +10,17 @@ describe('spy', function(){
     })
   })
 
-
   beforeEach(function(){
     s = spy();
   });
+
+  it('should support methods', function(){
+    var arr = [];
+    var s = spy(arr, 'push');
+    s(1, 2, 3);
+    s(4, 5, 6);
+    assert.deepEqual([1, 2, 3, 4, 5, 6], arr);
+  })
 
   it('should record arguments', function(){
     s(1, 2, 3);
