@@ -8,13 +8,13 @@ var eql = require('eql');
 
 /**
  * Create a test spy with `obj`, `method`.
- * 
+ *
  * Examples:
- * 
+ *
  *      s = require('spy')({}, 'toString');
  *      s = require('spy')(document.write);
  *      s = require('spy')();
- * 
+ *
  * @param {Object|Function} obj
  * @param {String} method
  * @return {Function}
@@ -22,7 +22,7 @@ var eql = require('eql');
  */
 
 module.exports = function(obj, method){
-  var fn = toFunction(arguments);
+  var fn = toFunction(arguments, spy);
   return merge(spy, proto);
 
   function spy(){
@@ -44,7 +44,7 @@ var proto = {};
 
 /**
  * `true` if the spy was called with `args`.
- * 
+ *
  * @param {Arguments} ...
  * @return {Boolean}
  * @api public
@@ -59,7 +59,7 @@ proto.calledWith = function(n){
 
 /**
  * `true` if the spy returned `value`.
- * 
+ *
  * @param {Mixed} value
  * @return {Boolean}
  * @api public
@@ -72,7 +72,7 @@ proto.returned = function(value){
 
 /**
  * `true` if the spy was called once.
- * 
+ *
  * @return {Boolean}
  * @api public
  */
@@ -83,7 +83,7 @@ proto.once = function(){
 
 /**
  * `true` if the spy was called twice.
- * 
+ *
  * @return {Boolean}
  * @api public
  */
@@ -94,7 +94,7 @@ proto.twice = function(){
 
 /**
  * `true` if the spy was called three times.
- * 
+ *
  * @return {Boolean}
  * @api public
  */
@@ -105,7 +105,7 @@ proto.thrice = function(){
 
 /**
  * Reset the spy.
- * 
+ *
  * @return {Function}
  * @api public
  */
@@ -119,7 +119,7 @@ proto.reset = function(){
 
 /**
  * Update the spy.
- * 
+ *
  * @return {Function}
  * @api private
  */
@@ -134,21 +134,25 @@ proto.update = function(){
 
 /**
  * To function.
- * 
+ *
  * @param {...} args
+ * @param {Function} spy
  * @return {Function}
  * @api private
  */
 
-function toFunction(args){
+function toFunction(args, spy){
   var obj = args[0];
   var method = args[1];
 
   switch (args.length) {
     case 0: return function noop(){};
     case 1: return function(args){ return obj.apply(null, args); };
-    case 2: return function(args){
-      return obj[method].apply(obj, args);
+    case 2:
+    var m = obj[method];
+    obj[method] = spy;
+    return function(args){
+      return m.apply(obj, args);
     };
   }
 }
