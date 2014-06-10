@@ -118,6 +118,21 @@ proto.reset = function(){
 };
 
 /**
+ * Restore.
+ *
+ * @return {Function}
+ * @api public
+ */
+
+proto.restore = function(){
+  if (!this.obj) return this;
+  var m = this.method;
+  var fn = this.fn;
+  this.obj[m] = fn;
+  return this;
+};
+
+/**
  * Update the spy.
  *
  * @return {Function}
@@ -150,6 +165,9 @@ function toFunction(args, spy){
     case 1: return function(args){ return obj.apply(null, args); };
     case 2:
     var m = obj[method];
+    spy.method = method;
+    spy.fn = m;
+    spy.obj = obj;
     obj[method] = spy;
     return function(args){
       return m.apply(obj, args);

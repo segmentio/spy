@@ -22,6 +22,16 @@ describe('spy', function(){
     assert(arr.push.calledWith(1, 2, 3));
   })
 
+  it('should restore methods with `.restore()`', function(){
+    var arr = [];
+    var orig = arr.push;
+    var s = spy(arr, 'push');
+    s(1);
+    assert.deepEqual([1], arr);
+    s.restore();
+    assert(orig == arr.push);
+  })
+
   it('should record arguments', function(){
     s(1, 2, 3);
     s(4, 5, 6);
