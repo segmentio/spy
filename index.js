@@ -27,8 +27,8 @@ module.exports = function(obj, method){
   return merge(spy, proto);
 
   function spy(){
-    var args = clone([].slice.call(arguments));
-    var ret = fn(args);
+    var args = [].slice.call(arguments);
+    var ret = fn(clone(args));
     spy.returns || spy.reset();
     spy.args.push(args);
     spy.returns.push(ret);
