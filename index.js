@@ -3,6 +3,7 @@
  * Module dependencies.
  */
 
+var clone = require('clone');
 var merge = require('merge');
 var eql = require('eql');
 
@@ -26,8 +27,8 @@ module.exports = function(obj, method){
   return merge(spy, proto);
 
   function spy(){
-    var args = [].slice.call(arguments);
-    var ret = fn(arguments);
+    var args = clone([].slice.call(arguments));
+    var ret = fn(args);
     spy.returns || spy.reset();
     spy.args.push(args);
     spy.returns.push(ret);

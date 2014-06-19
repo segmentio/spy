@@ -43,6 +43,13 @@ describe('spy', function(){
     ]);
   })
 
+  it('should clone arguments', function(){
+    var obj = { a: 10 };
+    s(obj);
+    delete obj.a;
+    assert.deepEqual(s.args, [ { a: 10 } ]);
+  })
+
   it('should record returned values', function(){
     s(1, 2, 3);
     s(4, 5, 6);

@@ -16,6 +16,7 @@
     "index.js"
   ],
   "dependencies": {
+    "component/clone": "*",
     "yields/eql": "*",
     "yields/merge": "*"
   },
