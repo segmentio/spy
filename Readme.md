@@ -80,6 +80,18 @@
     spy(4, 5, 6);
     spy.got(1, 2, 3); // => false
 
+#### .gotLazy(...), .calledWithLazy(...)
+
+  `true` if `args` lazy match the last call.
+
+  (added to be compatible with `sinon.spy()`)
+
+  Examples:
+
+    spy(1, 2, 3);
+    spy.gotLazy(1, 2) // => true
+
+
 #### .returned(...)
 
   `true` if the spy was called with `...`
