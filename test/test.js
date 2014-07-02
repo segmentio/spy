@@ -97,6 +97,15 @@ describe('spy', function(){
     })
   })
 
+  describe('.gotLazy()', function(){
+    it('should lazy match arguments', function(){
+      s(1, 2, 3);
+      assert(s.gotLazy(1, 2));
+      s(4, 5, [6]);
+      assert(s.gotLazy(4));
+    })
+  })
+
   describe('.returned()', function(){
     it('should assert return values correctly', function(){
       var s = spy(window.btoa);
