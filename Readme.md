@@ -80,16 +80,29 @@
     spy(4, 5, 6);
     spy.got(1, 2, 3); // => false
 
-#### .gotLazy(...), .calledWithLazy(...)
+    spy(1, 2, 3);
+    spy.got(1, 2) // => true
 
-  `true` if `args` lazy match the last call.
+    spy(1, 2, 3);
+    spy.got(1) // => true
 
-  (added to be compatible with `sinon.spy()`)
+#### .gotExactly(...), .calledWithExactly(...)
+
+  `true` if the spay was called with exactly `...`
 
   Examples:
 
     spy(1, 2, 3);
-    spy.gotLazy(1, 2) // => true
+    spy.got(1, 2, 3); // => true
+
+    spy(4, 5, 6);
+    spy.got(1, 2, 3); // => false
+
+    spy(1, 2, 3);
+    spy.got(1, 2) // => false
+
+    spy(1, 2, 3);
+    spy.got(1) // => false
 
 
 #### .returned(...)

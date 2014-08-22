@@ -1,4 +1,11 @@
 
+0.3.0 / 2014-08-22
+==================
+ 
+ * merge properties from the host function
+ * swap main logic to be lazy
+ * added exactly methods
+
 0.2.0 / 2014-07-02
 ==================
 
