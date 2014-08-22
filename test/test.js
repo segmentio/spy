@@ -62,6 +62,22 @@ describe('spy', function(){
       s(4, 5, [6]);
       assert(s.got(4, 5, [6]));
     })
+
+    it('should lazy match arguments', function(){
+      s(1, 2, 3);
+      assert(s.got(1, 2));
+      s(4, 5, [6]);
+      assert(s.got(4));
+    })
+
+    it('should match any of the calls', function(){
+      s(1, 2, 3);
+      s(4, 5, 6);
+      s(7, 8, 9);
+      assert(s.got(1, 2, 3));
+      assert(s.got(4, 5));
+      assert(s.got(7));
+    })
   })
 
   describe('.calledWith()', function(){
@@ -70,18 +86,34 @@ describe('spy', function(){
     })
   })
 
-  describe('.gotLazy()', function(){
-    it('should lazy match arguments', function(){
+  describe('.gotExactly()', function(){
+    it('should assert arguments correctly', function(){
       s(1, 2, 3);
-      assert(s.gotLazy(1, 2));
+      assert(s.gotExactly(1, 2, 3));
       s(4, 5, [6]);
-      assert(s.gotLazy(4));
+      assert(s.gotExactly(4, 5, [6]));
+    })
+
+    it('should not lazy match arguments', function(){
+      s(1, 2, 3);
+      assert(!s.gotExactly(1, 2));
+      s(4, 5, [6]);
+      assert(!s.gotExactly(4));
+    })
+
+    it('should match any of the calls', function(){
+      s(1, 2, 3);
+      s(4, 5, 6);
+      s(7, 8, 9);
+      assert(s.got(1, 2, 3));
+      assert(s.got(4, 5, 6));
+      assert(s.got(7, 8, 9));
     })
   })
 
-  describe('.calledWithLazy()', function(){
-    it('should alias .gotLazy()', function(){
-      assert(spy().calledWithLazy == spy().gotLazy);
+  describe('.calledWithExactly()', function(){
+    it('should alias .gotExactly()', function(){
+      assert(spy().calledWithExactly == spy().gotExactly);
     })
   })
 

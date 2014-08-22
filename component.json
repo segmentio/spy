@@ -17,7 +17,8 @@
   ],
   "dependencies": {
     "yields/eql": "*",
-    "yields/merge": "*"
+    "yields/merge": "*",
+    "component/each": "*"
   },
   "development": {
     "component/assert": "*"
