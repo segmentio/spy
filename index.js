@@ -23,7 +23,8 @@ var eql = require('eql');
 
 module.exports = function(obj, method){
   var fn = toFunction(arguments, spy);
-  return merge(spy, proto);
+  merge(spy, proto);
+  return spy.reset();
 
   function spy(){
     var args = [].slice.call(arguments);
@@ -37,7 +38,7 @@ module.exports = function(obj, method){
 };
 
 /**
- * Prototype.
+ * Pseudo-prototype.
  */
 
 var proto = {};
@@ -190,13 +191,14 @@ function toFunction(args, spy){
     case 0: return function noop(){};
     case 1: return function(args){ return obj.apply(null, args); };
     case 2:
-    var m = obj[method];
-    spy.method = method;
-    spy.fn = m;
-    spy.obj = obj;
-    obj[method] = spy;
-    return function(args){
-      return m.apply(obj, args);
-    };
+      var m = obj[method];
+      merge(spy, m);
+      spy.method = method;
+      spy.fn = m;
+      spy.obj = obj;
+      obj[method] = spy;
+      return function(args){
+        return m.apply(obj, args);
+      };
   }
 }

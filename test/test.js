@@ -4,12 +4,6 @@ describe('spy', function(){
   var spy = require('spy');
   var s;
 
-  describe('.calledWith', function(){
-    it('should alias .got', function(){
-      assert(spy().calledWith == spy().got);
-    })
-  })
-
   beforeEach(function(){
     s = spy();
   });
@@ -54,13 +48,84 @@ describe('spy', function(){
     ]);
   })
 
+  it('should mixin host properties', function(){
+    var host = { fn: function(){} };
+    host.fn.prop = true;
+    spy(host, 'fn');
+    assert(host.fn.prop);
+  })
+
+  describe('.got()', function(){
+    it('should assert arguments correctly', function(){
+      s(1, 2, 3);
+      assert(s.got(1, 2, 3));
+      s(4, 5, [6]);
+      assert(s.got(4, 5, [6]));
+    })
+  })
+
+  describe('.calledWith()', function(){
+    it('should alias .got()', function(){
+      assert(spy().calledWith == spy().got);
+    })
+  })
+
+  describe('.gotLazy()', function(){
+    it('should lazy match arguments', function(){
+      s(1, 2, 3);
+      assert(s.gotLazy(1, 2));
+      s(4, 5, [6]);
+      assert(s.gotLazy(4));
+    })
+  })
+
+  describe('.calledWithLazy()', function(){
+    it('should alias .gotLazy()', function(){
+      assert(spy().calledWithLazy == spy().gotLazy);
+    })
+  })
+
+  describe('.returned()', function(){
+    it('should assert return values correctly', function(){
+      var s = spy(window.btoa);
+      s('test');
+      assert(s.returned('dGVzdA=='));
+      assert('dGVzdA==' == s.returns[0]);
+      s('foo');
+      assert(s.returned('Zm9v'));
+      assert('Zm9v' == s.returns[1]);
+    })
+  })
+
+  describe('.once()', function(){
+    it('should be true only when called once', function(){
+      assert(!s.once());
+      s(1);
+      assert(s.once());
+      s(1);
+      assert(!s.once());
+    })
+  })
+
   describe('.calledOnce', function(){
-    it('should be true only when the function was called once', function(){
+    it('should be true only when called once', function(){
       assert(!s.calledOnce);
       s(1);
       assert(s.calledOnce);
       s(1);
       assert(!s.calledOnce);
+    })
+  })
+
+  describe('.twice()', function(){
+    it('should be true when called twice', function(){
+      assert(!s.twice());
+      s(1);
+      assert(!s.twice());
+      s(1);
+      assert(s.twice());
+      s(1);
+      assert(!s.twice());
     })
   })
 
@@ -76,6 +141,20 @@ describe('spy', function(){
     })
   })
 
+  describe('.thrice()', function(){
+    it('should be true when called three times', function(){
+      assert(!s.thrice());
+      s(1);
+      assert(!s.thrice());
+      s(1);
+      assert(!s.thrice());
+      s(1);
+      assert(s.thrice());
+      s(1);
+      assert(!s.thrice());
+    })
+  })
+
   describe('.calledThrice', function(){
     it('should be true when called three times', function(){
       assert(!s.calledThrice);
@@ -85,36 +164,8 @@ describe('spy', function(){
       assert(!s.calledThrice);
       s(1);
       assert(s.calledThrice);
-    })
-  })
-
-  describe('.got()', function(){
-    it('should assert arguments correctly', function(){
-      s(1, 2, 3);
-      assert(s.got(1, 2, 3));
-      s(4, 5, [6]);
-      assert(s.got(4, 5, [6]));
-    })
-  })
-
-  describe('.gotLazy()', function(){
-    it('should lazy match arguments', function(){
-      s(1, 2, 3);
-      assert(s.gotLazy(1, 2));
-      s(4, 5, [6]);
-      assert(s.gotLazy(4));
-    })
-  })
-
-  describe('.returned()', function(){
-    it('should assert return values correctly', function(){
-      var s = spy(window.btoa);
-      s('test');
-      assert(s.returned('dGVzdA=='));
-      assert('dGVzdA==' == s.returns[0]);
-      s('foo');
-      assert(s.returned('Zm9v'));
-      assert('Zm9v' == s.returns[1]);
+      s(1);
+      assert(!s.calledThrice);
     })
   })
 
