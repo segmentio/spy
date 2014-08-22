@@ -44,33 +44,43 @@ module.exports = function(obj, method){
 var proto = {};
 
 /**
- * `true` if the spy was called with `args`.
- *
- * @param {Arguments} ...
- * @return {Boolean}
- * @api public
- */
-
-proto.got =
-proto.calledWith = function(){
-  var a = [].slice.call(arguments);
-  var b = this.last();
-  return eql(a, b);
-};
-
-/**
- * lazy match `args` and return `true` if the spy was called with them.
+ * Lazily match `args` and return `true` if the spy was called with them.
  *
  * @param {Arguments} args
  * @return {Boolean}
  * @api public
  */
 
+proto.got =
+proto.calledWith =
 proto.gotLazy =
 proto.calledWithLazy = function(){
   var a = [].slice.call(arguments);
-  var b = this.last().slice(0, a.length);
-  return eql(a, b);
+
+  for (var i = 0, args; args = this.args[i]; i++) {
+    if (eql(a,  args.slice(0, a.length))) return true;
+  }
+
+  return false;
+};
+
+/**
+ * Exactly match `args` and return `true` if the spy was called with them.
+ *
+ * @param {Arguments} ...
+ * @return {Boolean}
+ * @api public
+ */
+
+proto.gotExactly =
+proto.calledWithExactly = function(){
+  var a = [].slice.call(arguments);
+
+  for (var i = 0, args; args = this.args[i]; i++) {
+    if (eql(a, args)) return true;
+  }
+
+  return false;
 };
 
 /**
@@ -161,17 +171,6 @@ proto.update = function(){
   this.calledTwice = this.twice();
   this.calledThrice = this.thrice();
   return this;
-};
-
-/**
- * Get the last arguments.
- *
- * @return {Array}
- * @api private
- */
-
-proto.last = function(){
-  return this.args[this.args.length - 1];
 };
 
 /**
