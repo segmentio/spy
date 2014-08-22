@@ -80,9 +80,21 @@ describe('spy', function(){
     })
   })
 
+  describe('.gotLazy()', function(){
+    it('should alias .got()', function(){
+      assert(spy().gotLazy == spy().got);
+    })
+  })
+
   describe('.calledWith()', function(){
     it('should alias .got()', function(){
       assert(spy().calledWith == spy().got);
+    })
+  })
+
+  describe('.calledWithLazy()', function(){
+    it('should alias .got()', function(){
+      assert(spy().calledWithLazy == spy().got);
     })
   })
 

@@ -53,7 +53,9 @@ var proto = {};
  */
 
 proto.got =
-proto.calledWith = function(){
+proto.calledWith =
+proto.gotLazy =
+proto.calledWithLazy = function(){
   var a = [].slice.call(arguments);
 
   for (var i = 0, args; args = this.args[i]; i++) {
