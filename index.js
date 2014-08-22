@@ -4,7 +4,6 @@
  */
 
 var merge = require('merge');
-var each = require('each');
 var eql = require('eql');
 
 /**
