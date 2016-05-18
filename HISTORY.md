@@ -1,3 +1,10 @@
+1.0.0 / 2016-05-18
+==================
+ 
+ * Modernize test harness
+ * Remove Duo support
+ * Add npm support
+ * Fix broken tests
 
 0.3.0 / 2014-08-22
 ==================
