@@ -1,3 +1,8 @@
+1.0.1 / 2016-06-02
+==================
+
+ * Replace `equals` with `@segment/equals` dep since upstream breaks incessantly
+
 1.0.0 / 2016-05-18
 ==================
  
