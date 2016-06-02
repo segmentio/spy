@@ -1,7 +1,7 @@
 'use strict';
 
 var assert = require('proclaim');
-var equals = require('equals');
+var equals = require('@segment/equals');
 var spy = require('../lib');
 
 describe('spy', function() {
