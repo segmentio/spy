@@ -1,6 +1,6 @@
 {
   "name": "@segment/spy",
-  "version": "1.0.1",
+  "version": "1.1.0",
   "description": "Test spy",
   "keywords": [
     "spy",
@@ -21,6 +21,7 @@
   },
   "homepage": "https://github.com/segmentio/spy#readme",
   "dependencies": {
+    "@ndhoule/clone": "^1.0.0",
     "@ndhoule/extend": "^2.0.0",
     "@segment/equals": "^1.1.1"
   },
@@ -33,11 +34,11 @@
     "eslint-plugin-mocha": "^2.2.0",
     "eslint-plugin-require-path-exists": "^1.1.5",
     "istanbul": "^0.4.3",
-    "karma": "^0.13.22",
+    "karma": "^1.0.0",
     "karma-browserify": "^5.0.4",
     "karma-chrome-launcher": "^1.0.1",
     "karma-coverage": "^1.0.0",
-    "karma-mocha": "^1.0.1",
+    "karma-mocha": "1.0.1",
     "karma-phantomjs-launcher": "^1.0.0",
     "karma-sauce-launcher": "^1.0.0",
     "karma-spec-reporter": "0.0.26",

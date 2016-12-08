@@ -29,6 +29,16 @@ describe('spy', function() {
     assert(arr.push === orig);
   });
 
+  it('should clone args', function() {
+    var originalArgs = {};
+    var fn = {
+      a: function(param) { param.suh = 'dude'; }
+    };
+    var s = spy(fn, 'a');
+    s(originalArgs);
+    assert.deepEqual(s.args[0], [{}]);
+  });
+
   it('should record arguments', function() {
     s(1, 2, 3);
     s(4, 5, 6);
