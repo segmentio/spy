@@ -1,3 +1,8 @@
+1.1.0 / 2016-12-07
+==================
+
+ * Clone args for .spy() to preserve order for better testability for async apis 
+
 1.0.1 / 2016-06-02
 ==================
 
