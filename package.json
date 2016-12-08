@@ -21,6 +21,7 @@
   },
   "homepage": "https://github.com/segmentio/spy#readme",
   "dependencies": {
+    "@ndhoule/clone": "^1.0.0",
     "@ndhoule/extend": "^2.0.0",
     "@segment/equals": "^1.1.1"
   },
